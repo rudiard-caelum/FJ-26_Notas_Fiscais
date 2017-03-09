@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/_template.xhtml">
+	<ui:define name="titulo">
+		<title>Notas Fiscais - Wizard</title>
+	</ui:define>
+	<ui:define name="corpo">
+
+		<h:form>
+			<p:tabView>
+				<p:tab title="Cabeçalho">
+					<fieldset>
+						<legend>Dados da nota</legend>
+
+						<h:outputLabel value="CNPJ do Cliente:" />
+						<p:inputMask mask="99.999.999/9999-99" />
+
+						<h:outputLabel value="Data:" />
+						<p:calendar pattern="dd/MM/yyyy"
+							value="#{notaFiscalWizardBean.notaFiscal.data.time}" />
+					</fieldset>
+				</p:tab>
+				<p:tab title="Itens">
+					<fieldset>
+						<legend>Dados do item</legend>
+						<h:outputLabel value="Produto:" />
+						<p:autoComplete value="#{notaFiscalWizardBean.idProduto}"
+							completeMethod="#{produtoBean.busca}" minQueryLength="3"
+							var="produto" itemLabel="#{produto.nome}"
+							itemValue="#{produto.id}" />
+
+						<h:outputLabel value="Quantidade:" />
+						<h:inputText value="#{notaFiscalWizardBean.item.quantidade}" />
+
+						<h:commandButton action="#{notaFiscalWizardBean.guardaItem}"
+							value="Guardar Item" />
+					</fieldset>
+				</p:tab>
+			</p:tabView>
+
+			<h:commandButton value="Avançar" action="#{notaFiscalWizardBean.avancar}" />
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

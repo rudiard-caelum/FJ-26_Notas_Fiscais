@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<ui:insert name="titulo" />
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<div id="cabecalho">
+		<h:graphicImage library="imagens" name="logo-uber.png"
+			id="logoCompany" />
+		<div id="usuarioLogado">
+			<h:form rendered="#{not empty usuarioLogadoBean.usuario}">
+				Logado como: #{usuarioLogadoBean.usuario.login}. Para desconectar,
+				clique <h:commandLink action="#{usuarioLogadoBean.deslogar}"
+					value="Aqui"></h:commandLink>				
+			</h:form>
+		</div>
+	</div>
+
+	<div id="conteudo">
+		<h:form rendered="#{not empty usuarioLogadoBean.usuario}">
+			<p:menubar>
+				<p:menuitem value="Produtos" url="produtos.xhtml"
+					icon="ui-icon ui-icon-document" />
+				<p:submenu label="Notas Fiscais" icon="ui-icon ui-icon-suitcase">
+					<p:menuitem value="Cadastro" url="notafiscal.xhtml" />
+					<p:menuitem value="Listgem" url="listanotas.xhtml" />
+					<p:menuitem value="Wizard" url="" />
+				</p:submenu>
+				<p:menuitem value="Gráfico" url="grafico.xhtml" icon="ui-icon ui-icon-star" />
+				<p:menuitem value="Usuários" url="usuarios.xhtml"
+					icon="ui-icon ui-icon-person"></p:menuitem>
+				<p:menuitem value="Sair" action="#{usuarioLogadoBean.deslogar}"
+					icon="ui-icon ui-icon-close" />
+			</p:menubar>
+			
+			<p:panel id="tema" header="Selecione o Tema" style="margin-bottom:5px">
+				<p:themeSwitcher value="#{temaBean.tema}" style="width:150px">
+					<f:selectItems value="#{temaBean.temas}" />
+					<f:ajax />
+				</p:themeSwitcher>
+ 			</p:panel>
+			
+		</h:form>
+
+		<ui:insert name="corpo" />
+	</div>
+
+	<div id="rodape">Copyright 2013. Todos os Direitos reservados a
+		Rudiard Rodrigues.</div>
+
+</h:body>
+</html>

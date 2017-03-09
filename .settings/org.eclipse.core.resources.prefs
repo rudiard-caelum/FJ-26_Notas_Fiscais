@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//WebContent/produtos.xhtml=UTF-8
+encoding//WebContent/usuarios.xhtml=UTF-8
+encoding//src/br/com/caelum/notasfiscais/listener/LoginListener.java=UTF-8
+encoding//src/br/com/caelum/notasfiscais/mb/ProdutoBean.java=UTF-8
+encoding//src/br/com/caelum/notasfiscais/mb/TemaBean.java=UTF-8
+encoding//src/br/com/caelum/notasfiscais/mb/UsuarioBean.java=UTF-8
+encoding//src/br/com/caelum/notasfiscais/modelo/NotaFiscal.java=UTF-8
+encoding//src/br/com/caelum/notasfiscais/modelo/Produto.java=UTF-8
+encoding//src/br/com/caelum/notasfiscais/teste/TestBean.java=UTF-8
+encoding//src/br/com/caelum/notasfiscais/tx/TransactionInterceptor.java=UTF-8
+encoding/<project>=UTF-8

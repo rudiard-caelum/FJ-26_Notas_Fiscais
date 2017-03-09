@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/_template.xhtml">
+	<ui:define name="titulo">
+		<title>Cadastro de Produtos</title>
+	</ui:define>
+	<ui:define name="corpo">
+		<h:form id="formProduto">
+			<h2>
+				<h:outputText value="Novo Produto"
+					rendered="#{empty produtoBean.produto.id}" />
+				<h:outputText value="Editar Produto"
+					rendered="#{not empty produtoBean.produto.id}" />
+			</h2>
+			<h:messages styleClass="erros" />
+			<p:fieldset legend="Dados do Produto">
+				<h:inputHidden value="#{produtoBean.produto.id}" />
+
+				<h:outputLabel value="Nome:" for="nome" />
+				<p:inputText id="nome" value="#{produtoBean.produto.nome}" />
+
+				<h:outputLabel value="Descrição:" for="descricao" />
+				<p:inputTextarea id="descricao"
+					value="#{produtoBean.produto.descricao}" />
+
+				<h:outputLabel value="Preço:" for="preco" />
+				<p:inputText id="preco" value="#{produtoBean.produto.preco}"
+					required="true" requireMessage="Preço obrigatório"
+					validatorMessage="O valor mínimo é 0,50">
+					<f:validateDoubleRange minimum="0.50" />
+				</p:inputText>
+
+				<h:commandButton value="Gravar" action="#{produtoBean.grava}">
+					<f:ajax render="@form :formListaProduto" execute="@form" />
+				</h:commandButton>
+
+				<h:commandButton value="Cancelar" action="#{produtoBean.cancela}"
+					rendered="#{not empty produtoBean.produto.id}">
+					<f:ajax render="@form" execute="@this" />
+					<!-- usamos execute='@this' para enviar somente o botão e executar
+						     o método correto, pois o escopo do Bean está como Request. Se
+						     for ViewScope funciona o botão -->
+				</h:commandButton>
+			</p:fieldset>
+		</h:form>
+
+		<h2>Listagem de Produtos</h2>
+		<h:form id="formListaProduto">
+			<p:dataTable value="#{produtoBean.produtos}" var="produto"
+				paginator="true" rows="5" lazy="true">
+				<p:column headerText="Nome">
+						#{produto.nome}
+					</p:column>
+				<p:column headerText="Descrição">
+						#{produto.descricao}
+						<!-- <f:facet name="footer">Total:</f:facet>  -->
+				</p:column>
+				<p:column headerText="Preço">
+						#{produto.preco}
+						<!-- <f:facet name="footer">#{produtoBean.totalProdutos}</f:facet>  -->
+				</p:column>
+				<p:column>
+					<h:commandLink action="#{produtoBean.remove(produto)}"
+						value="Remover">
+						<f:ajax render="@form" />
+					</h:commandLink>
+				</p:column>
+				<p:column>
+					<h:commandLink value="Alterar">
+						<f:setPropertyActionListener value="#{produto}"
+							target="#{produtoBean.produto}" />
+						<f:ajax render=":formProduto" execute="@form" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>
